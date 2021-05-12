@@ -13,20 +13,24 @@ export default function Dashboard({ code }) {
     const [userURL, setUserURL] = useState()
     const [userImage, setUserImage] = useState()
 
-
     useEffect(() => {
         if (!accessToken) return
         spotifyApi.setAccessToken(accessToken)
-    }, [accessToken])
 
-    useEffect(() => {
+        // Get User Information
         spotifyApi.getMe().then(res => {
             setUserName(res.body.display_name)
             setUserURL(res.body.external_urls.spotify)
-            setUserImage(res.body.images[0])
-        }).catch(() => {
+            setUserImage(res.body.images[0].url)
         })
-    })
 
-    return <Container>{userName}</Container>
+    }, [accessToken])
+
+    return (
+        <Container>
+            {userName}
+            {userURL}
+            <img src={userImage} alt={userName}></img>
+        </Container>
+    )
 }
