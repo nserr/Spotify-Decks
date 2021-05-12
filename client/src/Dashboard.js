@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import useAuth from './useAuth'
-import { Container } from 'react-bootstrap'
+import { Container, Dropdown } from 'react-bootstrap'
 import SpotifyWebApi from 'spotify-web-api-node'
 
 const spotifyApi = new SpotifyWebApi({
@@ -9,11 +9,16 @@ const spotifyApi = new SpotifyWebApi({
 
 export default function Dashboard({ code }) {
     const accessToken = useAuth(code)
+
     const [userName, setUserName] = useState()
     const [userURL, setUserURL] = useState()
     const [userURI, setUserURI] = useState()
     const [userImage, setUserImage] = useState()
 
+    const [topArtists, setTopArtists] = useState()
+    const [topTracks, setTopTracks] = useState()
+
+    // Set Access Token and Retrieve User Information
     useEffect(() => {
         if (!accessToken) return
         spotifyApi.setAccessToken(accessToken)
@@ -25,20 +30,29 @@ export default function Dashboard({ code }) {
             setUserURI(res.body.uri)
             setUserImage(res.body.images[0].url)
         })
-
     }, [accessToken])
 
-    function getTopArtists() {
-        spotifyApi.getMyTopArtists().then(res => {
-            console.log(res)
+
+    // Retrieve User's Top Artists and Tracks
+    useEffect(() => {
+        if (!accessToken) return
+
+        spotifyApi.getMyTopArtists("time_range=long_term&limit=50").then(res => {
+            setTopArtists(res.body.items)
         })
-    }
+
+        spotifyApi.getMyTopTracks("time_range=long_term&limit=50").then(res => {
+            setTopTracks(res.body.items)
+        })
+
+    }, [accessToken])
 
     return (
         <Container>
             <a href={userURL} target="_blank">{userName}</a>
             <img src={userImage} alt={userName}></img>
-            <button onClick={getTopArtists}>Get Top Artists</button>
+            {topArtists ? topArtists[0].name : ''}
+            {topTracks ? topTracks[0].name : ''}
         </Container>
     )
 }
