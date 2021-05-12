@@ -11,6 +11,7 @@ export default function Dashboard({ code }) {
     const accessToken = useAuth(code)
     const [userName, setUserName] = useState()
     const [userURL, setUserURL] = useState()
+    const [userURI, setUserURI] = useState()
     const [userImage, setUserImage] = useState()
 
     useEffect(() => {
@@ -21,16 +22,23 @@ export default function Dashboard({ code }) {
         spotifyApi.getMe().then(res => {
             setUserName(res.body.display_name)
             setUserURL(res.body.external_urls.spotify)
+            setUserURI(res.body.uri)
             setUserImage(res.body.images[0].url)
         })
 
     }, [accessToken])
 
+    function getTopArtists() {
+        spotifyApi.getMyTopArtists().then(res => {
+            console.log(res)
+        })
+    }
+
     return (
         <Container>
-            {userName}
-            {userURL}
+            <a href={userURL} target="_blank">{userName}</a>
             <img src={userImage} alt={userName}></img>
+            <button onClick={getTopArtists}>Get Top Artists</button>
         </Container>
     )
 }
