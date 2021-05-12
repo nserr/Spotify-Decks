@@ -5,6 +5,14 @@
     flex-direction: row;
 }
 
+.artist-deck {
+    /* display: flex;
+    flex-direction: row;
+    border: 2px solid;
+    flex-wrap: wrap;
+    justify-content: center; */
+}
+
 :root {
     --level-one: translateZ(3rem);
     --level-two: translateZ(6rem);
@@ -33,6 +41,8 @@
   .card {
     width: var(--card-width);
     border: none;
+    padding: 0.5em;
+    flex: 1;
   }
   
   .card__content {
