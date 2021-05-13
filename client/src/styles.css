@@ -6,11 +6,10 @@
 }
 
 .artist-deck {
-    /* display: flex;
+    display: flex;
     flex-direction: row;
-    border: 2px solid;
     flex-wrap: wrap;
-    justify-content: center; */
+    justify-content: center;
 }
 
 :root {
@@ -21,9 +20,9 @@
     --fw-normal: 400;
     --fw-bold: 700;
     
-    --clr: #b7c9e5;
+    --clr: #cad3e0;
 
-    --card-width: 400px;
+    --card-width: 22rem;
   }
   
   *, *::before, *::after {
@@ -39,7 +38,7 @@
   }
   
   .card {
-    width: var(--card-width);
+    min-width: var(--card-width);
     border: none;
     padding: 0.5em;
     flex: 1;
