@@ -1,0 +1,60 @@
+:root {
+  --bg-color: #FFFEF2;
+}
+
+.main {
+  background-color: var(--bg-color);
+}
+
+.user-info {
+  padding: 2em;
+  background-color: var(--bg-color);
+
+}
+
+.user-name {
+  display: flex;
+  align-items: center;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.user-image {
+  width: 8em;
+  transition: .3s ease;
+}
+
+.user-image:hover {
+  opacity: 50%;
+  transition: .3s ease;
+}
+
+.logo {
+  width: 8em;
+}
+
+.lines {
+  background-color: var(--bg-color);
+}
+
+.line {
+  width: 100%;
+  height: 0.1em;
+  margin: 0.8em;
+}
+
+.list-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: var(--bg-color);
+}
+
+.artist-deck {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
