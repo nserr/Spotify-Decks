@@ -82,7 +82,9 @@ export default function Dashboard({ code }) {
 
     return (
         <Container>
-            <Row>
+            <Navbar bg="light" expand="lg">
+                <Navbar.Brand href="/">Spotify Decks</Navbar.Brand>
+            </Navbar>
             <Container className="list-container">
                 {topArtists ? console.log(topArtists) : ''}
                 {/* {topTracks ? console.log(topTracks) : ''} */}
@@ -91,7 +93,6 @@ export default function Dashboard({ code }) {
                 {/* {topTracks ? <TrackList /> : <Spinner animation="border" role="status"></Spinner>} */}
                 
             </Container>
-            </Row>
         </Container>
     )
 }
