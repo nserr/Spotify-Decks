@@ -7,6 +7,7 @@
     --fw-bold: 700;
     
     --clr: #cad3e0;
+    --success-green: #198754;
 
     --card-width: 22rem;
   }
@@ -53,12 +54,12 @@
     padding: 5em 3em;
     backface-visibility: hidden;
     transform-style: preserve-3d;
-    display: grid;
-    align-content: center;
-    justify-content: center;
   }
   
   .card__front {
+    display: grid;
+    align-content: center;
+    justify-content: center;
     background-color: var(--clr);
     background-size: cover;
     background-blend-mode: overlay;
@@ -119,7 +120,71 @@
   }
   
   .card__back {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     transform: rotateY(.5turn);
     color: var(--clr);
     background: #333;
+  }
+
+  .card__back__row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 0.1em var(--clr);
+    width: 100%;
+  }
+
+  .card__back__artist {
+    transform: var(--level-two);
+    color: var(--clr);
+    font-size: 2em;
+  }
+
+  .card__back__link {
+    transform: var(--level-two);
+    color: var(--clr);
+    transition: .3s ease;
+    margin-bottom: 0.8em;
+  }
+
+  .card__back__link:hover {
+    opacity: .5;
+    color: var(--clr);
+    transition: .3s ease;
+  }
+
+  .card__back__genres {
+    transform: var(--level-two);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card__back__genre {
+    background-color: var(--clr);
+    color: #333;
+    border-radius: 0.25em;
+    margin: 0.3em;
+    padding: 0.3em 0.5em;
+
+  }
+
+  .card__back__followers {
+    transform: var(--level-two);
+    color: var(--clr);
+    font-size: 1em;
+  }
+
+  .card__back__popularity {
+    width: 5em;
+    transform: var(--level-two);
+    font-size: 1em;
+    margin-bottom: 0.9em;
   }
