@@ -77,7 +77,15 @@
     transform: var(--level-one);
   }
   
-  .card__title {
+  .card__title__artist {
+    font-size: 3.5rem;
+    transform: var(--level-three);
+    order: 2;
+    text-transform: uppercase;
+    max-width: calc(var(--card-width) * 0.9);
+  }
+
+  .card__title__track {
     font-size: 3.5rem;
     transform: var(--level-three);
     order: 2;
@@ -85,7 +93,16 @@
     max-width: calc(var(--card-width) * 0.9);
   }
   
-  .card__subtitle {
+  .card__rank {
+    transform: var(--level-two);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 1.5rem;
+    font-weight: var(--fw-bold);
+    opacity: .7;
+  }
+
+  .card__artist {
     transform: var(--level-two);
     text-transform: uppercase;
     letter-spacing: 4px;
