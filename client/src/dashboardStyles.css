@@ -1,6 +1,6 @@
 :root {
   --bg-color: #FFFEF2;
-  --spotify-green: #1DB954;
+  --success-green: #198754;
 }
 
 body {
@@ -29,7 +29,7 @@ body {
 }
 
 .user-image:hover {
-  opacity: 50%;
+  opacity: .5;
   transition: .3s ease;
 }
 
