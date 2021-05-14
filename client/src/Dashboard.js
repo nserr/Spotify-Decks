@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import useAuth from './useAuth'
 import SpotifyWebApi from 'spotify-web-api-node'
 
-import { Container, Row, Col, Image, Spinner, CardDeck } from 'react-bootstrap'
+import { Container, Row, Col, Image, Spinner, CardDeck, ButtonGroup, ToggleButton } from 'react-bootstrap'
 
 import './dashboardStyles.css'
 import './cardStyles.css'
@@ -23,8 +23,19 @@ export default function Dashboard({ code }) {
     const [userURL, setUserURL] = useState()
     const [userImage, setUserImage] = useState()
 
-    const [topArtists, setTopArtists] = useState()
-    const [topTracks, setTopTracks] = useState()
+    const [topArtistsAll, setTopArtistsAll] = useState()
+    const [topArtists6M, setTopArtists6M] = useState()
+    const [topArtists1M, setTopArtists1M] = useState()
+    const [activeArtists, setActiveArtists] = useState()
+
+    const [topTracksAll, setTopTracksAll] = useState()
+    const [topTracks6M, setTopTracks6M] = useState()
+    const [topTracks1M, setTopTracks1M] = useState()
+    const [activeTracks, setActiveTracks] = useState()
+
+    const [timeRange, setTimeRange] = useState('1')
+    const [statType, setStatType] = useState('1')
+
 
 
     // Set Access Token and Retrieve User Information
@@ -46,29 +57,48 @@ export default function Dashboard({ code }) {
     useEffect(() => {
         if (!accessToken) return
 
+        // Artists
         spotifyApi.getMyTopArtists("time_range=long_term&limit=50").then(res => {
-            setTopArtists(res.body.items)
+            setTopArtistsAll(res.body.items)
+            setActiveArtists(res.body.items)
+        })
+        spotifyApi.getMyTopArtists("time_range=medium_term&limit=50").then(res => {
+            setTopArtists6M(res.body.items)
+        })
+        spotifyApi.getMyTopArtists("time_range=short_term&limit=50").then(res => {
+            setTopArtists1M(res.body.items)
         })
 
+        // Tracks
         spotifyApi.getMyTopTracks("time_range=long_term&limit=50").then(res => {
-            setTopTracks(res.body.items)
+            setTopTracksAll(res.body.items)
+            setActiveTracks(res.body.items)
+        })
+        spotifyApi.getMyTopTracks("time_range=medium_term&limit=50").then(res => {
+            setTopTracks6M(res.body.items)
+        })
+        spotifyApi.getMyTopTracks("time_range=short_term&limit=50").then(res => {
+            setTopTracks1M(res.body.items)
         })
 
     }, [accessToken])
 
 
+    // Create Artist Cards
     function ArtistList() {
-        const cards = topArtists.map((artist) =>
+        const cards = activeArtists.map((artist) =>
             <div className="card" key={artist.id}>
                 <div className="card__content"> 
                     <div className="card__front" style={{ backgroundImage: `url(${artist.images[0].url})`}}>
-                        <h3 className="card__title">{artist.name}</h3>
-                        <p className="card__subtitle">{topArtists.indexOf(artist) + 1}</p>
+                        <h3 className="card__title__artist">{artist.name}</h3>
+                        <p className="card__rank">{activeArtists.indexOf(artist) + 1}</p>
                     </div>
 
                     <div className="card__back">
                         <p className="card__body">{artist.genres.toString()}</p>
                         <a className="card__body" href={artist.external_urls.spotify} target="_blank">Spotify</a>
+                        <p className="card__body">{artist.followers.total}</p>
+                        <p className="card__body">{artist.popularity}</p>
                     </div>
                 </div>
             </div>
@@ -78,13 +108,108 @@ export default function Dashboard({ code }) {
     }
 
 
+    // Create Track Cards
     function TrackList() {
-        const listItems = topTracks.map((track) =>
-            <li key={track.id}>{track.name}</li>
+        const cards = activeTracks.map((track) =>
+            <div className="card" key={track.id}>
+                <div className="card__content"> 
+                    <div className="card__front" style={{ backgroundImage: `url(${track.album.images[0].url})`}}>
+                        <h3 className="card__title__track">{track.name}</h3>
+                        <p className="card__rank">{activeTracks.indexOf(track) + 1}</p>
+                        <p className="card__artist">{track.artists[0].name}</p>
+                    </div>
+
+                    <div className="card__back">
+                        <a className="card__body" href={track.duration_ms} target="_blank">Spotify</a>
+                        <p className="card__body">{track.popularity}</p>
+                    </div>
+                </div>
+            </div>
         )
 
-        return ( <ol>{listItems}</ol> )
+        return ( <CardDeck className="track-deck">{cards}</CardDeck> )
     }
+
+
+    // Update on Time Range Radio Selection
+    function updateTimeRange(selection) {
+        setTimeRange(selection)
+
+        switch(selection) {
+            case '1':
+                setActiveArtists(topArtistsAll)
+                setActiveTracks(topTracksAll)
+                break
+            case '2':
+                setActiveArtists(topArtists6M)
+                setActiveTracks(topTracks6M)
+                break
+            case '3':
+                setActiveArtists(topArtists1M)
+                setActiveTracks(topTracks1M)
+                break
+            default:
+                return
+        }
+    }
+
+
+    // Time Range Radio Selection
+    function SelectTimeRange() {
+        const radios = [
+          { name: 'All-Time', value: '1' },
+          { name: 'Last 6 Months', value: '2' },
+          { name: 'Last Month', value: '3' },
+        ]
+      
+        return (
+            <ButtonGroup toggle>
+                {radios.map((radio, idx) => (
+                    <ToggleButton
+                        className="radio-button"
+                        key={idx}
+                        type="radio"
+                        variant="outline-success"
+                        name="radio"
+                        value={radio.value}
+                        checked={timeRange === radio.value}
+                        onChange={(e) => updateTimeRange(e.currentTarget.value)}
+                    >
+                        {radio.name}
+                    </ToggleButton>
+                ))}
+            </ButtonGroup>
+        )
+    }
+
+
+    // Stat Type Radio Selection
+    function SelectStatType() {
+        const radios = [
+          { name: 'Artists', value: '1' },
+          { name: 'Tracks', value: '2' },
+        ]
+      
+        return (
+            <ButtonGroup toggle>
+                {radios.map((radio, idx) => (
+                    <ToggleButton
+                        className="radio-button"
+                        key={idx}
+                        type="radio"
+                        variant="outline-success"
+                        name="radio"
+                        value={radio.value}
+                        checked={statType === radio.value}
+                        onChange={(e) => setStatType(e.currentTarget.value)}
+                    >
+                        {radio.name}
+                    </ToggleButton>
+                ))}
+            </ButtonGroup>
+        )
+    }
+
 
     return (
         <Container className="main">
@@ -99,7 +224,7 @@ export default function Dashboard({ code }) {
                         <p>{userName}'s deck.</p>
                     </Col>
                     <Col xs lg="2">
-                        <Image className="logo" src={logo} rounded/>
+                        {/* logo */}
                     </Col>
                 </Row>
             </Container>
@@ -108,13 +233,15 @@ export default function Dashboard({ code }) {
                 <div className="line" style={{ backgroundColor: '#1DB954' }}></div>
                 <div className="line" style={{ backgroundColor: 'black' }}></div>
             </Container>
+            <Container className="radio-container">
+                <SelectStatType />
+                <SelectTimeRange />
+            </Container>
             <Container className="list-container">
-                {/* {topArtists ? console.log(topArtists) : ''} */}
-                {/* {topTracks ? console.log(topTracks) : ''} */}
-
-                {topArtists ? <ArtistList /> : <Spinner animation="border" role="status"></Spinner>}
-                {/* {topTracks ? <TrackList /> : <Spinner animation="border" role="status"></Spinner>} */}
-                
+                {   statType === '1' ?
+                        activeArtists ? <ArtistList /> : <Spinner animation="border" role="status"></Spinner> :
+                        activeTracks ? <TrackList /> : <Spinner animation="border" role="status"></Spinner>
+                }
             </Container>
         </Container>
     )
