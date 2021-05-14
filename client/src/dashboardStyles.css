@@ -1,5 +1,6 @@
 :root {
   --bg-color: #FFFEF2;
+  --spotify-green: #1DB954;
 }
 
 .main {
@@ -9,7 +10,6 @@
 .user-info {
   padding: 2em;
   background-color: var(--bg-color);
-
 }
 
 .user-name {
@@ -58,3 +58,30 @@
     justify-content: center;
 }
 
+.track-deck {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.radio-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 2em 0.5em 2em 0.5em;
+}
+
+.radio-button {
+  font-size: 1.2em;
+}
+
+@media only screen and (max-width: 768px) {
+  .radio-container {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .radio-button {
+    margin: 1em 0 1em 0;
+  }
+}
