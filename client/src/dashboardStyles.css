@@ -3,6 +3,10 @@
   --spotify-green: #1DB954;
 }
 
+body {
+  background-color: var(--bg-color);
+}
+
 .main {
   background-color: var(--bg-color);
 }

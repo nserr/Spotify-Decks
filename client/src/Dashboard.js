@@ -7,11 +7,6 @@ import { Container, Row, Col, Image, Spinner, CardDeck, ButtonGroup, ToggleButto
 import './dashboardStyles.css'
 import './cardStyles.css'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
-
-import logo from './logo.png'
-
 const spotifyApi = new SpotifyWebApi({
     clientId: 'e10bba1aea88476d8577408b7abffcb2',
 })
