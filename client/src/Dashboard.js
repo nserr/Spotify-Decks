@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react'
 import useAuth from './useAuth'
 import SpotifyWebApi from 'spotify-web-api-node'
 
-import { Container, Row, Col, Image, Spinner, CardDeck, ButtonGroup, ToggleButton } from 'react-bootstrap'
+import { Container, Row, Col, Image, Spinner, CardDeck, ButtonGroup, ToggleButton, ProgressBar, Tab, Tabs } from 'react-bootstrap'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpotify } from '@fortawesome/free-brands-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 import './dashboardStyles.css'
 import './cardStyles.css'
@@ -30,7 +34,6 @@ export default function Dashboard({ code }) {
 
     const [timeRange, setTimeRange] = useState('1')
     const [statType, setStatType] = useState('1')
-
 
 
     // Set Access Token and Retrieve User Information
@@ -88,18 +91,34 @@ export default function Dashboard({ code }) {
                         <h3 className="card__title__artist">{artist.name}</h3>
                         <p className="card__rank">{activeArtists.indexOf(artist) + 1}</p>
                     </div>
-
                     <div className="card__back">
-                        <p className="card__body">{artist.genres.toString()}</p>
-                        <a className="card__body" href={artist.external_urls.spotify} target="_blank">Spotify</a>
-                        <p className="card__body">{artist.followers.total}</p>
-                        <p className="card__body">{artist.popularity}</p>
+                        <div className="card__back__row">
+                            <p className="card__back__artist">{artist.name}</p>
+                        </div>
+                        { ArtistGenres(artist.genres) }
+                        <div className="card__back__row">
+                            <p className="card__back__followers" title="Followers"><FontAwesomeIcon icon={faUser}/>{" " + artist.followers.total.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}</p>
+                            <a className="card__back__link" href={artist.external_urls.spotify} title="View on Spotify" target="_blank"><FontAwesomeIcon icon={faSpotify} size="2x"/></a>
+                            <ProgressBar className="card__back__popularity" variant="success" animated now={artist.popularity} label={artist.popularity} title="Popularity"></ProgressBar>
+                        </div>
                     </div>
                 </div>
             </div>
         )
 
         return ( <CardDeck className="artist-deck">{cards}</CardDeck> )
+    }
+
+
+    // Create Artist Genre Items
+    function ArtistGenres(genres) {
+        const artistGenres = genres.map((genre) =>
+            <div className="card__back__genre" key={genre}>
+                {genre}
+            </div>
+        )
+
+        return ( <div className="card__back__genres">{artistGenres}</div> )
     }
 
 
@@ -207,37 +226,41 @@ export default function Dashboard({ code }) {
 
 
     return (
-        <Container className="main">
-            <Container className="user-info">
-                <Row>
-                    <Col md="auto">
-                        <a href={userURL} target="_blank">
-                            <Image className="user-image" src={userImage} roundedCircle />
-                        </a>
-                    </Col>
-                    <Col className="user-name">
-                        <p>{userName}'s deck.</p>
-                    </Col>
-                    <Col xs lg="2">
-                        {/* logo */}
-                    </Col>
-                </Row>
+        <div>
+            { !activeArtists ? <Spinner animation="border" role="status"></Spinner> : 
+            <Container className="main">
+                <Container className="user-info">
+                    <Row>
+                        <Col md="auto">
+                            <a href={userURL} title="View on Spotify" target="_blank">
+                                <Image className="user-image" src={userImage} roundedCircle />
+                            </a>
+                        </Col>
+                        <Col className="user-name">
+                            <p>{userName}'s deck.</p>
+                        </Col>
+                        <Col xs lg="2">
+                            {/* logo */}
+                        </Col>
+                    </Row>
+                </Container>
+                <Container className="lines">
+                    <div className="line" style={{ backgroundColor: 'black' }}></div>
+                    <div className="line" style={{ backgroundColor: '#1DB954' }}></div>
+                    <div className="line" style={{ backgroundColor: 'black' }}></div>
+                </Container>
+                <Container className="radio-container">
+                    <SelectStatType />
+                    <SelectTimeRange />
+                </Container>
+                <Container className="list-container">
+                    {   statType === '1' ?
+                            activeArtists ? <ArtistList /> : <Spinner animation="border" role="status"></Spinner> :
+                            activeTracks ? <TrackList /> : <Spinner animation="border" role="status"></Spinner>
+                    }
+                </Container>
             </Container>
-            <Container className="lines">
-                <div className="line" style={{ backgroundColor: 'black' }}></div>
-                <div className="line" style={{ backgroundColor: '#1DB954' }}></div>
-                <div className="line" style={{ backgroundColor: 'black' }}></div>
-            </Container>
-            <Container className="radio-container">
-                <SelectStatType />
-                <SelectTimeRange />
-            </Container>
-            <Container className="list-container">
-                {   statType === '1' ?
-                        activeArtists ? <ArtistList /> : <Spinner animation="border" role="status"></Spinner> :
-                        activeTracks ? <TrackList /> : <Spinner animation="border" role="status"></Spinner>
-                }
-            </Container>
-        </Container>
+            }
+        </div>
     )
 }
