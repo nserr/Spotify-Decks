@@ -48,18 +48,18 @@ body {
 }
 
 .list-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: var(--bg-color);
 }
 
 .artist-deck {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .track-deck {
@@ -77,6 +77,10 @@ body {
 
 .radio-button {
   font-size: 1.2em;
+}
+
+input {
+  display: none;
 }
 
 @media only screen and (max-width: 768px) {
