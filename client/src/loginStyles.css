@@ -1,0 +1,23 @@
+body {
+    background-color: #FFFEF2;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 8rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5em;
+}
+
+.subtitle {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 5em;
+}
