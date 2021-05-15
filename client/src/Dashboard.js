@@ -6,7 +6,7 @@ import { Container, Row, Col, Image, Spinner, CardDeck, ButtonGroup, ToggleButto
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify } from '@fortawesome/free-brands-svg-icons'
-import { faUser, faClock } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faClock, faPlayCircle } from '@fortawesome/free-solid-svg-icons'
 
 import './dashboardStyles.css'
 import './cardStyles.css'
@@ -106,7 +106,7 @@ export default function Dashboard({ code }) {
             </div>
         )
 
-        return ( <CardDeck className="artist-deck">{cards}</CardDeck> )
+        return ( <CardDeck className="card-deck">{cards}</CardDeck> )
     }
 
 
@@ -139,7 +139,7 @@ export default function Dashboard({ code }) {
                         { TrackArtists(track.artists) }
                         <div className="card__back__row">
                             <p className="card__back__stats" title="Duration"><FontAwesomeIcon icon={faClock}/>{" " + convertTime(track.duration_ms)}</p>
-                            <a className="card__back__link" href={track.external_urls.spotify} title="View on Spotify" target="_blank"><FontAwesomeIcon icon={faSpotify} size="2x"/></a>
+                            <a className="card__back__link" href={track.external_urls.spotify} title="Play on Spotify" target="_blank"><FontAwesomeIcon icon={faPlayCircle} size="2x"/></a>
                             <ProgressBar className="card__back__popularity" variant="success" animated now={track.popularity} label={track.popularity} title="Popularity"></ProgressBar>
                         </div>
                     </div>
@@ -147,7 +147,7 @@ export default function Dashboard({ code }) {
             </div>
         )
 
-        return ( <CardDeck className="track-deck">{cards}</CardDeck> )
+        return ( <CardDeck className="card-deck">{cards}</CardDeck> )
     }
 
 
