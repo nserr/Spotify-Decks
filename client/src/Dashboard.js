@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import useAuth from './useAuth'
 import SpotifyWebApi from 'spotify-web-api-node'
 
-import { Container, Row, Col, Image, Spinner, CardDeck, ButtonGroup, ToggleButton, ProgressBar, Tab, Tabs } from 'react-bootstrap'
+import { Container, Row, Col, Image, Spinner, CardDeck, ButtonGroup, ToggleButton, ProgressBar } from 'react-bootstrap'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify } from '@fortawesome/free-brands-svg-icons'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faClock } from '@fortawesome/free-solid-svg-icons'
 
 import './dashboardStyles.css'
 import './cardStyles.css'
@@ -93,11 +93,11 @@ export default function Dashboard({ code }) {
                     </div>
                     <div className="card__back">
                         <div className="card__back__row">
-                            <p className="card__back__artist">{artist.name}</p>
+                            <p className="card__back__title">{artist.name}</p>
                         </div>
                         { ArtistGenres(artist.genres) }
                         <div className="card__back__row">
-                            <p className="card__back__followers" title="Followers"><FontAwesomeIcon icon={faUser}/>{" " + artist.followers.total.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}</p>
+                            <p className="card__back__stats" title="Followers"><FontAwesomeIcon icon={faUser}/>{" " + artist.followers.total.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}</p>
                             <a className="card__back__link" href={artist.external_urls.spotify} title="View on Spotify" target="_blank"><FontAwesomeIcon icon={faSpotify} size="2x"/></a>
                             <ProgressBar className="card__back__popularity" variant="success" animated now={artist.popularity} label={artist.popularity} title="Popularity"></ProgressBar>
                         </div>
@@ -128,20 +128,69 @@ export default function Dashboard({ code }) {
             <div className="card" key={track.id}>
                 <div className="card__content"> 
                     <div className="card__front" style={{ backgroundImage: `url(${track.album.images[0].url})`}}>
-                        <h3 className="card__title__track">{track.name}</h3>
+                        {TrackNameFormatter(track.name)}
                         <p className="card__rank">{activeTracks.indexOf(track) + 1}</p>
                         <p className="card__artist">{track.artists[0].name}</p>
                     </div>
-
                     <div className="card__back">
-                        <a className="card__body" href={track.duration_ms} target="_blank">Spotify</a>
-                        <p className="card__body">{track.popularity}</p>
+                        <div className="card__back__row">
+                            <p className="card__back__title">{track.name}</p>
+                        </div>
+                        { TrackArtists(track.artists) }
+                        <div className="card__back__row">
+                            <p className="card__back__stats" title="Duration"><FontAwesomeIcon icon={faClock}/>{" " + convertTime(track.duration_ms)}</p>
+                            <a className="card__back__link" href={track.external_urls.spotify} title="View on Spotify" target="_blank"><FontAwesomeIcon icon={faSpotify} size="2x"/></a>
+                            <ProgressBar className="card__back__popularity" variant="success" animated now={track.popularity} label={track.popularity} title="Popularity"></ProgressBar>
+                        </div>
                     </div>
                 </div>
             </div>
         )
 
         return ( <CardDeck className="track-deck">{cards}</CardDeck> )
+    }
+
+
+    // Format Track Names With Parentheses
+    function TrackNameFormatter(trackName) {
+        const regex = /\((.*?)\)/gm
+
+        if (regex.test(trackName)) {
+            const splits = trackName.split(regex)
+            return (
+                <>
+                    <h3 className="card__title__track">{splits[0]}</h3>
+                    <h3 className="card__title__track" style={{ fontSize: "1.5em" }}>{splits[1]}</h3>
+                </>
+            )
+        }
+
+        return ( <h3 className="card__title__track">{trackName}</h3> )
+    }
+
+
+    // Create Artist Genre Items
+    function TrackArtists(artists) {
+        const trackArtists = artists.map((artist) =>
+            <a className="card__back__artist" key={artist.id} href={artist.external_urls.spotify} target="_blank" title="View on Spotify">
+                <FontAwesomeIcon icon={faSpotify} size="lg" style={{ marginRight: "0.5em" }}/>
+                {artist.name}
+            </a>
+        )
+
+        return ( <div className="card__back__artists">{trackArtists}</div> )
+    }
+
+
+    // Convert Duration Time from Milliseconds to Minutes:Seconds
+    function convertTime(ms) {
+        const m = Math.floor(ms / 60000)
+        const s = Math.floor((ms / 1000) % 60)
+        
+        let paddingString = ""
+        if (s < 10) paddingString = "0"
+
+        return (m + ":" + paddingString + s)
     }
 
 
