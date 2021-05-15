@@ -87,7 +87,7 @@
   }
 
   .card__title__track {
-    font-size: 3.5rem;
+    font-size: 3rem;
     transform: var(--level-three);
     order: 2;
     text-transform: uppercase;
@@ -139,7 +139,7 @@
     width: 100%;
   }
 
-  .card__back__artist {
+  .card__back__title {
     transform: var(--level-two);
     color: var(--clr);
     font-size: 2em;
@@ -158,7 +158,7 @@
     transition: .3s ease;
   }
 
-  .card__back__genres {
+  .card__back__genres, .card__back__artists {
     transform: var(--level-two);
     display: flex;
     flex-direction: row;
@@ -167,16 +167,20 @@
     align-items: center;
   }
 
-  .card__back__genre {
+  .card__back__genre, .card__back__artist {
     background-color: var(--clr);
     color: #333;
     border-radius: 0.25em;
     margin: 0.3em;
     padding: 0.3em 0.5em;
-
+    text-decoration: none;
   }
 
-  .card__back__followers {
+  .card__back__artist:hover {
+    color: var(--success-green);
+  }
+
+  .card__back__stats {
     transform: var(--level-two);
     color: var(--clr);
     font-size: 1em;
