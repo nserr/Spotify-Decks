@@ -6,7 +6,13 @@ export default function useAuth(code) {
     const [refreshToken, setRefreshToken] = useState()
     const [expiresIn, setExpiresIn] = useState()
 
-    const uri = 'http://localhost:3001'
+    let uri = ''
+
+    if (process.env.NODE_ENV !== 'production') {
+        uri = process.env.REACT_APP_DEV_URI
+    } else {
+        uri = process.env.REACT_APP_PROD_URI
+    }
 
     useEffect(() => {
         axios.post(`${uri}/login`, {

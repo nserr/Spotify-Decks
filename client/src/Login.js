@@ -6,7 +6,14 @@ import { faSpotify } from '@fortawesome/free-brands-svg-icons'
 
 import './loginStyles.css'
 
-const redirect_uri = "http://localhost:3000"
+let redirect_uri = ''
+
+if (process.env.NODE_ENV !== 'production') {
+    redirect_uri = process.env.REACT_APP_DEV_URI
+} else {
+    redirect_uri = process.env.REACT_APP_PROD_URI
+}
+
 const AUTH_URL = "https://accounts.spotify.com/authorize?client_id=e10bba1aea88476d8577408b7abffcb2&response_type=code&redirect_uri=" + redirect_uri + "&scope=user-read-email%20user-read-private%20user-top-read"
 
 
