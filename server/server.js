@@ -14,6 +14,9 @@ if (process.env.NODE_ENV !== 'production') {
     uri = process.env.REACT_APP_DEV_URI
 } else {
     app.use(express.static(path.join(__dirname, 'client/build')))
+    app.get('*', function (req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
     uri = process.env.REACT_APP_PROD_URI
 }
 
