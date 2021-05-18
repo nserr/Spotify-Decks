@@ -3,7 +3,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const SpotifyWebApi = require('spotify-web-api-node')
 const path = require('path')
-require('dotenv').config()
+require('dotenv').config({path: __dirname+'/client/.env'})
 
 const app = express();
 app.use(cors())
