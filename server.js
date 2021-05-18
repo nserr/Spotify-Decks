@@ -21,6 +21,8 @@ if (process.env.NODE_ENV !== 'production') {
     uri = process.env.REACT_APP_PROD_URI
 }
 
+const PORT = process.env.PORT || 3001
+
 console.log("server running on " + uri)
 
 app.post('/refresh', (req, res) => {
@@ -62,4 +64,4 @@ app.post('/login', (req, res) => {
     })
 })
 
-app.listen(3001)
+app.listen(PORT, () => { console.log(`listening on port ${PORT}`)})
