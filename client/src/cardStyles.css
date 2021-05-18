@@ -176,7 +176,7 @@
     text-decoration: none;
   }
 
-  .card__back__artist:hover {
+  .card__back__genre:hover, .card__back__artist:hover {
     color: var(--success-green);
   }
 

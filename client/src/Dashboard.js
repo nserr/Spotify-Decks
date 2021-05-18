@@ -113,9 +113,9 @@ export default function Dashboard({ code }) {
     // Create Artist Genre Items
     function ArtistGenres(genres) {
         const artistGenres = genres.map((genre) =>
-            <div className="card__back__genre" key={genre}>
+            <a className="card__back__genre" key={genre} href={`https://open.spotify.com/search/${genre}`} target="_blank" title="View on Spotify">
                 {genre}
-            </div>
+            </a>
         )
 
         return ( <div className="card__back__genres">{artistGenres}</div> )
