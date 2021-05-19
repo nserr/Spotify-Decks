@@ -6,7 +6,7 @@ import { Container, Row, Col, Image, Spinner, CardDeck, ButtonGroup, ToggleButto
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify } from '@fortawesome/free-brands-svg-icons'
-import { faUser, faClock, faPlayCircle } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faClock, faPlayCircle, faCopyright } from '@fortawesome/free-solid-svg-icons'
 
 import './dashboardStyles.css'
 import './cardStyles.css'
@@ -288,9 +288,6 @@ export default function Dashboard({ code }) {
                         <Col className="user-name">
                             <p>{userName}'s deck.</p>
                         </Col>
-                        <Col xs lg="2">
-                            {/* logo */}
-                        </Col>
                     </Row>
                 </Container>
                 <Container className="lines">
@@ -307,6 +304,13 @@ export default function Dashboard({ code }) {
                             activeArtists ? <ArtistList /> : <Spinner animation="border" role="status"></Spinner> :
                             activeTracks ? <TrackList /> : <Spinner animation="border" role="status"></Spinner>
                     }
+                </Container>
+                <Container className="footer">
+                    <p>
+                        <FontAwesomeIcon icon={faCopyright} />&nbsp;
+                        {new Date().getFullYear()}&nbsp;
+                        <a className="github-link" href="https://github.com/nserr" target="_blank">Noah Serr</a>
+                    </p>
                 </Container>
             </Container>
             }

@@ -73,6 +73,23 @@ body {
   font-weight: bold;
 }
 
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+  color: #333;
+}
+
+.github-link {
+  text-decoration: none;
+  color: #333;
+}
+
+.github-link:hover {
+  color: var(--success-green)
+}
+
 input {
   display: none;
 }
