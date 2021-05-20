@@ -6,10 +6,9 @@ import { Container, Row, Col, Image, Spinner, CardDeck, ButtonGroup, ToggleButto
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify } from '@fortawesome/free-brands-svg-icons'
-import { faUser, faClock, faPlayCircle, faCopyright } from '@fortawesome/free-solid-svg-icons'
+import { faSun, faMoon, faUser, faClock, faPlayCircle, faCopyright } from '@fortawesome/free-solid-svg-icons'
 
 import './dashboardStyles.css'
-import './cardStyles.css'
 
 const spotifyApi = new SpotifyWebApi({
     clientId: 'e10bba1aea88476d8577408b7abffcb2',
@@ -34,6 +33,7 @@ export default function Dashboard({ code }) {
 
     const [timeRange, setTimeRange] = useState('1')
     const [statType, setStatType] = useState('1')
+    const [curTheme, setCurTheme] = useState('light')
 
 
     // Set Access Token and Retrieve User Information
@@ -274,6 +274,38 @@ export default function Dashboard({ code }) {
     }
 
 
+    // Theme Radio Selection
+    function SelectTheme() {
+        const radios = [
+            { name: <FontAwesomeIcon icon={faSun} />, value: 'light' },
+            { name: <FontAwesomeIcon icon={faMoon} />, value: 'dark' },
+        ]
+
+        let variant = (curTheme === 'light') ? 'outline-dark' : 'outline-light'        
+        document.body.style.backgroundColor = `var(--bg-color-${curTheme})`
+        document.body.style.color = `var(--text-color-${curTheme})`
+        
+        return (
+            <ButtonGroup toggle>
+                {radios.map((radio, idx) => (
+                    <ToggleButton
+                        className="radio-button"
+                        key={idx}
+                        type="radio"
+                        variant={variant}
+                        name="radio"
+                        value={radio.value}
+                        checked={curTheme === radio.value}
+                        onChange={(e) => setCurTheme(e.currentTarget.value)}
+                    >
+                        {radio.name}
+                    </ToggleButton>
+                ))}
+            </ButtonGroup>
+        )
+    }
+
+
     return (
         <div>
             { !activeArtists ? <Spinner animation="border" role="status"></Spinner> : 
@@ -288,12 +320,15 @@ export default function Dashboard({ code }) {
                         <Col className="user-name">
                             <p>{userName}'s deck.</p>
                         </Col>
+                        <Col xs lg="2" className="toggle-theme">
+                            <SelectTheme />
+                        </Col>
                     </Row>
                 </Container>
                 <Container className="lines">
-                    <div className="line" style={{ backgroundColor: 'black' }}></div>
-                    <div className="line" style={{ backgroundColor: '#1DB954' }}></div>
-                    <div className="line" style={{ backgroundColor: 'black' }}></div>
+                    <div className="line" style={{ backgroundColor: `var(--line-color-${curTheme})` }}></div>
+                    <div className="line" style={{ backgroundColor: 'var(--spotify-green)' }}></div>
+                    <div className="line" style={{ backgroundColor: `var(--line-color-${curTheme})` }}></div>
                 </Container>
                 <Container className="radio-container">
                     <SelectStatType />
@@ -304,6 +339,11 @@ export default function Dashboard({ code }) {
                             activeArtists ? <ArtistList /> : <Spinner animation="border" role="status"></Spinner> :
                             activeTracks ? <TrackList /> : <Spinner animation="border" role="status"></Spinner>
                     }
+                </Container>
+                <Container className="lines">
+                    <div className="line" style={{ backgroundColor: `var(--line-color-${curTheme})` }}></div>
+                    <div className="line" style={{ backgroundColor: 'var(--spotify-green)' }}></div>
+                    <div className="line" style={{ backgroundColor: `var(--line-color-${curTheme})` }}></div>
                 </Container>
                 <Container className="footer">
                     <p>
