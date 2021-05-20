@@ -132,9 +132,11 @@ input {
 @media only screen and (max-width: 768px) {
   .toggle-theme {
     position: absolute;
-    top: 0;
-    left: 8em;
+    top: 1em;
+    left: 15em;
+    width: 8em;
   }
+  
   .radio-container {
     justify-content: center;
     flex-wrap: wrap;

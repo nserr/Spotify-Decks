@@ -320,7 +320,7 @@ export default function Dashboard({ code }) {
                         <Col className="user-name">
                             <p>{userName}'s deck.</p>
                         </Col>
-                        <Col xs lg="2" className="toggle-theme">
+                        <Col md ="auto" className="toggle-theme">
                             <SelectTheme />
                         </Col>
                     </Row>
