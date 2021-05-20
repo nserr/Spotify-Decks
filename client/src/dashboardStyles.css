@@ -102,19 +102,27 @@ body {
 
 .footer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 2em;
   color: inherit;
+  font-size: 1.2em;
 }
 
-.github-link {
+.footer-row {
+  margin: 0.5em;
+}
+
+.icon-link {
   text-decoration: none;
   color: inherit;
+  margin: 1em;
+  transition: .3s ease;
 }
 
-.github-link:hover {
-  color: var(--success-green)
+.icon-link:hover {
+  color: var(--success-green);
+  transition: .3s ease;
 }
 
 input {
@@ -122,6 +130,11 @@ input {
 }
 
 @media only screen and (max-width: 768px) {
+  .toggle-theme {
+    position: absolute;
+    top: 0;
+    left: 8em;
+  }
   .radio-container {
     justify-content: center;
     flex-wrap: wrap;
