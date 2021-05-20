@@ -37,6 +37,7 @@ body {
 .user-info {
   padding: 2em;
   background-color: inherit;
+  text-align: start;
 }
 
 .user-name {
@@ -69,7 +70,7 @@ body {
 }
 
 .line {
-  width: 100%;
+  width: 98%;
   height: 0.1em;
   margin: 0.8em;
 }

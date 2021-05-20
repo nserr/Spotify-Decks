@@ -7,10 +7,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .title {
-    font-size: 8rem;
+    font-size: 6rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 0.5em;
