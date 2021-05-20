@@ -5,7 +5,7 @@ import SpotifyWebApi from 'spotify-web-api-node'
 import { Container, Row, Col, Image, Spinner, CardDeck, ButtonGroup, ToggleButton, ProgressBar } from 'react-bootstrap'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpotify } from '@fortawesome/free-brands-svg-icons'
+import { faSpotify, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { faSun, faMoon, faUser, faClock, faPlayCircle, faCopyright } from '@fortawesome/free-solid-svg-icons'
 
 import './dashboardStyles.css'
@@ -346,11 +346,17 @@ export default function Dashboard({ code }) {
                     <div className="line" style={{ backgroundColor: `var(--line-color-${curTheme})` }}></div>
                 </Container>
                 <Container className="footer">
-                    <p>
-                        <FontAwesomeIcon icon={faCopyright} />&nbsp;
-                        {new Date().getFullYear()}&nbsp;
-                        <a className="github-link" href="https://github.com/nserr" target="_blank">Noah Serr</a>
-                    </p>
+                    <div className="footer-row">
+                        <FontAwesomeIcon icon={faCopyright} /> {new Date().getFullYear()} Noah Serr
+                    </div>
+                    <div className="footer-row">
+                        <a className="icon-link" href="https://github.com/nserr" target="_blank">
+                            <FontAwesomeIcon icon={faGithub} size="2x"/>
+                        </a>
+                        <a className="icon-link" href="https://www.linkedin.com/in/noah-serr-737888197/" target="_blank">
+                            <FontAwesomeIcon icon={faLinkedin} size="2x"/>
+                        </a>
+                    </div>
                 </Container>
             </Container>
             }
