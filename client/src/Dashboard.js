@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { faSun, faMoon, faUser, faClock, faPlayCircle, faCopyright } from '@fortawesome/free-solid-svg-icons'
 
+import defaultProfilePic from './images/default-profile-pic.png'
+
 import './dashboardStyles.css'
 
 const spotifyApi = new SpotifyWebApi({
@@ -314,7 +316,7 @@ export default function Dashboard({ code }) {
                     <Row>
                         <Col md="auto">
                             <a href={userURL} title="View on Spotify" target="_blank">
-                                <Image className="user-image" src={userImage} roundedCircle />
+                                <Image className="user-image" src={userImage ? userImage : defaultProfilePic} roundedCircle />
                             </a>
                         </Col>
                         <Col className="user-name">
