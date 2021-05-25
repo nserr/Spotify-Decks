@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
     redirect_uri = process.env.REACT_APP_PROD_URI
 }
 
-const AUTH_URL = "https://accounts.spotify.com/authorize?client_id=e10bba1aea88476d8577408b7abffcb2&response_type=code&redirect_uri=" + redirect_uri + "&scope=user-read-email%20user-read-private%20user-top-read"
+const AUTH_URL = "https://accounts.spotify.com/authorize?client_id=e10bba1aea88476d8577408b7abffcb2&response_type=code&redirect_uri=" + redirect_uri + "&scope=user-read-email%20user-read-private%20user-top-read%20playlist-modify-public%20playlist-modify-private"
 
 
 export default function Login() {
