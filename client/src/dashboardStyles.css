@@ -65,6 +65,23 @@ body {
   align-items: center;
 }
 
+.radio-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 2em 0.5em 2em 0.5em;
+}
+
+.radio-button {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.playlist-button {
+  font-weight: bold;
+  margin: 0.5em 0.5em;
+  width: 96%;
+}
+
 .lines {
   background-color: inherit;
 }
@@ -88,17 +105,6 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.radio-container {
-  display: flex;
-  justify-content: space-between;
-  margin: 2em 0.5em 2em 0.5em;
-}
-
-.radio-button {
-  font-size: 1.2em;
-  font-weight: bold;
 }
 
 .footer {
