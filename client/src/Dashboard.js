@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import useAuth from './useAuth'
 import SpotifyWebApi from 'spotify-web-api-node'
 
-import { Container, Row, Col, Image, Spinner, CardDeck, ButtonGroup, ToggleButton, ProgressBar, Button, Alert } from 'react-bootstrap'
+import { Container, Row, Col, Image, Spinner, CardDeck, ButtonGroup, ToggleButton, Button, Alert } from 'react-bootstrap'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
@@ -174,7 +174,7 @@ export default function Dashboard({ code }) {
                         <div className="card__back__row">
                             <p className="card__back__stats" title="Followers"><FontAwesomeIcon icon={faUser}/>{" " + artist.followers.total.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}</p>
                             <a className="card__back__link" href={artist.external_urls.spotify} title="View on Spotify" target="_blank"><FontAwesomeIcon icon={faSpotify} size="2x"/></a>
-                            <ProgressBar className="card__back__popularity" variant="success" animated now={artist.popularity} label={artist.popularity} title="Popularity"></ProgressBar>
+                            <p className="card__back__popularity">Popularity: <strong>{artist.popularity}</strong></p>
                         </div>
                     </div>
                 </div>
@@ -215,7 +215,7 @@ export default function Dashboard({ code }) {
                         <div className="card__back__row">
                             <p className="card__back__stats" title="Duration"><FontAwesomeIcon icon={faClock}/>{" " + convertTime(track.duration_ms)}</p>
                             <a className="card__back__link" href={track.external_urls.spotify} title="Play on Spotify" target="_blank"><FontAwesomeIcon icon={faPlayCircle} size="2x"/></a>
-                            <ProgressBar className="card__back__popularity" variant="success" animated now={track.popularity} label={track.popularity} title="Popularity"></ProgressBar>
+                            <p className="card__back__popularity">Popularity: <strong>{track.popularity}</strong></p>
                         </div>
                     </div>
                 </div>
@@ -432,10 +432,10 @@ export default function Dashboard({ code }) {
                     </div>
                     <div className="footer-row">
                         <a className="icon-link" href="https://github.com/nserr" target="_blank">
-                            <FontAwesomeIcon icon={faGithub} size="2x"/>
+                            <FontAwesomeIcon icon={faGithub} size="lg"/>
                         </a>
                         <a className="icon-link" href="https://www.linkedin.com/in/noah-serr-737888197/" target="_blank">
-                            <FontAwesomeIcon icon={faLinkedin} size="2x"/>
+                            <FontAwesomeIcon icon={faLinkedin} size="lg"/>
                         </a>
                     </div>
                 </Container>
