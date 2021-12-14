@@ -103,6 +103,15 @@ body {
   color: inherit;
 }
 
+.genreCount {
+  text-transform: capitalize;
+  color: var(--spotify-green);
+}
+
+.artistCount, .popAvg {
+  color: var(--spotify-green);
+}
+
 .list-container {
   display: flex;
   justify-content: center;
@@ -162,6 +171,14 @@ input {
 
   .radio-button {
     margin: 1em 0 1em 0;
+  }
+
+  .stats {
+    flex-direction: column;
+  }
+
+  .stat {
+    margin: 0.5em;
   }
 }
 

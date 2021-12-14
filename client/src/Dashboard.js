@@ -23,7 +23,6 @@ export default function Dashboard({ code }) {
     const [userURL, setUserURL] = useState()
     const [userImage, setUserImage] = useState()
 
-    const [curGenres, setCurGenres] = useState(new Map())
     const [curArtist, setCurArtist] = useState()
     const [curPopularity, setCurPopularity] = useState()
 
@@ -90,25 +89,6 @@ export default function Dashboard({ code }) {
         })
 
     }, [accessToken])
-
-
-    function collectGenreStats(artist) {
-        const genres = artist.genres
-        let count = 0
-
-        genres.map((genre) => {
-            if (curGenres.has(genre)) {
-                count = curGenres.get(genre)
-                curGenres.set(genre, count += 1)
-            } else {
-                curGenres.set(genre, 1)
-            }
-        })
-
-        const genreCount = [...curGenres.entries()].reduce((a, b) => b[1] > a[1] ? b : a)
-
-        console.log(genreCount)
-    }
 
 
     // Create Playlist from Top Songs
@@ -180,12 +160,51 @@ export default function Dashboard({ code }) {
     }
 
 
+    // Collect Stats for Artist List
+    function ArtistStats() {
+        let genreMap = new Map()
+        let genres = []
+        let popularities = []
+        let count = 0
+
+        activeArtists.map((artist) => {
+            artist.genres.map((genre) => { genres.push(genre) })
+            popularities.push(artist.popularity)
+        })
+
+        genres.map((genre) => {
+            if (genreMap.has(genre)) {
+                count = genreMap.get(genre)
+                genreMap.set(genre, count += 1)
+            } else {
+                genreMap.set(genre, 1)
+            }
+        })
+
+        const genreCount = [...genreMap.entries()].reduce((a, b) => b[1] > a[1] ? b : a)
+        const popSum = popularities.reduce((a, b) => a + b, 0)
+        const popAvg = Math.round(popSum / popularities.length)
+
+        return (
+            <div className="stats">
+                <span className="stat">
+                    Most Common Genre:&nbsp;
+                    <span className="genreCount">{genreCount[0]}&nbsp;</span>
+                    ({genreCount[1]})
+                </span>
+                <span className="stat">
+                    Average Popularity:&nbsp;
+                    <span className="popAvg">{popAvg}</span>
+                </span>
+            </div>
+        )
+    }
+
+
     // Create Artist Cards
     function ArtistList() {
-        curGenres.clear()
         const cards = activeArtists.map((artist) =>
             <div className="card" key={artist.id}>
-                {collectGenreStats(artist)}
                 <div className="card__content">
                     <div className="card__front" style={{ backgroundImage: `url(${artist.images[0].url})` }}>
                         <h3 className="card__title__artist">{artist.name}</h3>
@@ -219,6 +238,48 @@ export default function Dashboard({ code }) {
         )
 
         return (<div className="card__back__genres">{artistGenres}</div>)
+    }
+
+
+    // Collect Stats for Track List
+    function TrackStats() {
+        let artistMap = new Map()
+        let artists = []
+        let popularities = []
+        let count = 0
+
+        activeTracks.map((track) => {
+            track.artists.map((artist) => { artists.push(artist.name) })
+            popularities.push(track.popularity)
+        })
+
+        artists.map((artist) => {
+            if (artistMap.has(artist)) {
+                count = artistMap.get(artist)
+                artistMap.set(artist, count += 1)
+            } else {
+                artistMap.set(artist, 1)
+            }
+        })
+
+
+        const artistCount = [...artistMap.entries()].reduce((a, b) => b[1] > a[1] ? b : a)
+        const popSum = popularities.reduce((a, b) => a + b, 0)
+        const popAvg = Math.round(popSum / popularities.length)
+
+        return (
+            <div className="stats">
+                <span className="stat">
+                    Most Common Artist:&nbsp;
+                    <span className="artistCount">{artistCount[0]}&nbsp;</span>
+                    ({artistCount[1]})
+                </span>
+                <span className="stat">
+                    Average Popularity:&nbsp;
+                    <span className="popAvg">{popAvg}</span>
+                </span>
+            </div>
+        )
     }
 
 
@@ -436,10 +497,7 @@ export default function Dashboard({ code }) {
                     </Container>
                     <Container className="lines">
                         <div className="line" style={{ backgroundColor: `var(--line-color-${curTheme})` }}></div>
-                        <div className="stats">
-                            <span className="stat">Most Common Genre:</span>
-                            <span className="stat">Average Popularity:</span>
-                        </div>
+                        {statType === '1' ? <ArtistStats /> : <TrackStats />}
                         <div className="line" style={{ backgroundColor: `var(--line-color-${curTheme})` }}></div>
                     </Container>
                     <Container>
