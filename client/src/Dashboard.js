@@ -38,7 +38,7 @@ export default function Dashboard({ code }) {
 
     const [timeRange, setTimeRange] = useState('1')
     const [statType, setStatType] = useState('1')
-    const [curTheme, setCurTheme] = useState('light')
+    const [curTheme, setCurTheme] = useState('dark')
 
     const [isLoading, setLoading] = useState(false)
     const [showAlert, setShowAlert] = useState(false)
@@ -525,7 +525,7 @@ export default function Dashboard({ code }) {
                             <a className="icon-link" href="https://github.com/nserr" target="_blank">
                                 <FontAwesomeIcon icon={faGithub} size="lg" />
                             </a>
-                            <a className="icon-link" href="https://www.linkedin.com/in/noah-serr-737888197/" target="_blank">
+                            <a className="icon-link" href="https://www.linkedin.com/in/noahserr/" target="_blank">
                                 <FontAwesomeIcon icon={faLinkedin} size="lg" />
                             </a>
                         </div>

@@ -1,5 +1,5 @@
 body {
-    background-color: #FFFEF2;
+    background-color: #333;
 }
 
 .main {
@@ -13,12 +13,12 @@ body {
 .title {
     font-size: 6rem;
     font-weight: bold;
-    color: #333;
+    color: #fff;
     margin-bottom: 0.5em;
 }
 
 .subtitle {
     font-size: 2em;
-    color: #333;
+    color: #fff;
     margin-bottom: 3em;
 }
