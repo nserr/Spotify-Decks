@@ -92,6 +92,17 @@ body {
   margin: 0.8em;
 }
 
+.stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.stat {
+  font-weight: 600;
+  color: inherit;
+}
+
 .list-container {
   display: flex;
   justify-content: center;
