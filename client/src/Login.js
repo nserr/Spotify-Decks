@@ -19,19 +19,24 @@ const AUTH_URL = "https://accounts.spotify.com/authorize?client_id=e10bba1aea884
 
 export default function Login() {
     return (
-        <Container className="main">
-            <Row>
-                <h1 className="title">Spotify Decks.</h1>
-            </Row>
-            <Row>
-                <p className="subtitle">A unique visualization of your favorite Spotify artists and tracks.</p>
-            </Row>
-            <Row>
-                <Button variant="success" size="lg" href={AUTH_URL}>
-                    LOGIN WITH <strong>SPOTIFY</strong>
-                    <FontAwesomeIcon icon={faSpotify} style={{ marginLeft: "0.5em" }}/>
-                </Button>
-            </Row>
-        </Container>
+        <div>
+            <div className="bg"></div>
+            <div className="bg bg2"></div>
+            <div className="bg bg3"></div>
+            <Container className="main">
+                <Row>
+                    <h1 className="title">Spotify Decks.</h1>
+                </Row>
+                <Row>
+                    <p className="subtitle">A unique visualization of your favorite Spotify artists and tracks.</p>
+                </Row>
+                <Row>
+                    <Button variant="success" size="lg" href={AUTH_URL}>
+                        LOGIN WITH <strong>SPOTIFY</strong>
+                        <FontAwesomeIcon icon={faSpotify} style={{ marginLeft: "0.5em" }} />
+                    </Button>
+                </Row>
+            </Container>
+        </div>
     )
 }
