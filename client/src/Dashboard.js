@@ -469,7 +469,7 @@ export default function Dashboard({ code }) {
 
     return (
         <div>
-            {!activeArtists ? <Spinner animation="border" role="status"></Spinner> :
+            {!activeArtists ? <Spinner animation="border" role="status" variant="secondary"></Spinner> :
                 <Container className="main">
                     <Container className="user-info">
                         <Row>
