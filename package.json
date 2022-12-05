@@ -2,8 +2,11 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://nserr.github.io/Spotify-Decks",
   "main": "server.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "devStart": "nodemon server.js",
     "start": "node server.js && cd client && npm start",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
